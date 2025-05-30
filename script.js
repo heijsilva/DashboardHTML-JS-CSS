@@ -9,6 +9,18 @@ async function carregarDados() {
     gerarGraficos(produtos);
 }
 
+function atualizarCards(produtos) {
+    const totalVendas = produtos.reduce((soma, p) => soma + p.price, 0);
+    const totalProdutos = produtos.length;
+    const categorias = [...new Set(produtos.map(p => p.category))];
+    const crescimento = Math.floor(Math.random() * 30 + 1); // Simulado
+
+    document.querySelector('.card:nth-child(1) .valor').textContent = `R$ ${totalVendas.toFixed(2)}`;
+    document.querySelector('.card:nth-child(2) .valor').textContent = `${Math.floor(totalProdutos * 0.8)}`; // Simula clientes
+    document.querySelector('.card:nth-child(3) .valor').textContent = totalProdutos;
+    document.querySelector('.card:nth-child(4) .valor').textContent = `${crescimento}%`;
+}
+
 const ctxVendas = document.getElementById('grafico-vendas').getContext('2d');
 new Chart(ctxVendas, {
     type: 'bar',
