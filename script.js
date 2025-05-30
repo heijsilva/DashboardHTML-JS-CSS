@@ -194,3 +194,17 @@ async function listarProdutosBack4App() {
     tbodyBack4App.appendChild(tr);
   });
 }
+
+async function criarProdutoBack4App(produto) {
+  const res = await fetch(urlBaseBack4App, {
+    method: "POST",
+    headers: headersBack4App,
+    body: JSON.stringify(produto)
+  });
+  const data = await res.json();
+  if(data.objectId) {
+    alert('Produto criado com sucesso!');
+  } else {
+    alert('Erro ao criar produto.');
+  }
+}
