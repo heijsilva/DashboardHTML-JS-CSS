@@ -22,6 +22,25 @@ const inputPreco = document.getElementById('input-preco');
 const btnCancelar = document.getElementById('btn-cancelar');
 const tbodyBack4App = document.querySelector('#tabela-back4app tbody');
 
+//função para imortar dados do fakestoreapi para b4p
+async function importarProdutosFakeStore() {
+  const response = await fetch(API_URL);
+  const produtos = await response.json();
+
+  for (const produto of produtos) {
+    const novoProduto = {
+      nome: produto.title,
+      categoria: produto.category,
+      preco: produto.price
+    };
+    await criarProdutoBack4App(novoProduto, false); // false para não alertar em massa
+  }
+
+  alert('Produtos importados com sucesso!');
+  listarProdutosBack4App();
+  carregarDashboardComBack4App();
+}
+
 //função atualizar dados do dashboard
 async function carregarDashboardComBack4App() {
   const res = await fetch(urlBaseBack4App, { headers: headersBack4App });
