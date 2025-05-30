@@ -168,3 +168,9 @@ formProduto.addEventListener('submit', async (e) => {
   btnCancelar.style.display = 'none';
   listarProdutosBack4App();
 });
+
+btnCancelar.addEventListener('click', () => {
+  formProduto.reset();
+  inputId.value = '';
+  btnCancelar.style.display = 'none';
+});
