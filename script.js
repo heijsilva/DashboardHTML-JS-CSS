@@ -41,7 +41,7 @@ async function importarProdutosFakeStore() {
   carregarDashboardComBack4App();
 }
 
-//função atualizar dados do dashboard
+//função carregar dados do dashboard
 async function carregarDashboardComBack4App() {
   const res = await fetch(urlBaseBack4App, { headers: headersBack4App });
   const data = await res.json();
@@ -57,7 +57,6 @@ function atualizarCards(produtos) {
   const totalVendas = produtos.reduce((soma, p) => soma + p.preco, 0);
   const totalProdutos = produtos.length;
   const crescimento = Math.floor(Math.random() * 30 + 1);
-  const categorias = [...new Set(produtos.map(p => p.categoria))];
 
   document.querySelector('.card:nth-child(1) .valor').textContent = `R$ ${totalVendas.toFixed(2)}`;
   document.querySelector('.card:nth-child(2) .valor').textContent = `${Math.floor(totalProdutos * 0.8)}`;
@@ -85,89 +84,71 @@ function preencherTabela(produtos) {
 
 //graficos
 function gerarGraficos(produtos) {
-    const categorias = {};
-    produtos.forEach(produto => {
-        if (!categorias[produto.categoria]) {
-            categorias[produto.categoria] = {
-                quantidade: 0,
-                valor: 0
-            };
-        }
-        categorias[produto.categoria].quantidade += 1;
-        categorias[produto.categoria].valor += produto.preco;
-    });
+  const categorias = {};
+  produtos.forEach(produto => {
+    if (!categorias[produto.categoria]) {
+      categorias[produto.categoria] = { quantidade: 0, valor: 0 };
+    }
+    categorias[produto.categoria].quantidade += 1;
+    categorias[produto.categoria].valor += produto.preco;
+  });
 
-    const nomesCategorias = Object.keys(categorias);
-    const qtdPorCategoria = Object.values(categorias).map(c => c.quantidade);
-    const valorPorCategoria = Object.values(categorias).map(c => c.valor.toFixed(2));
+  const nomesCategorias = Object.keys(categorias);
+  const qtdPorCategoria = Object.values(categorias).map(c => c.quantidade);
+  const valorPorCategoria = Object.values(categorias).map(c => c.valor.toFixed(2));
 
-
-const ctxVendas = document.getElementById('grafico-vendas').getContext('2d');
-new Chart(ctxVendas, {
+  const ctxVendas = document.getElementById('grafico-vendas').getContext('2d');
+  new Chart(ctxVendas, {
     type: 'bar',
     data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-        datasets: [{
-            label: 'Vendas (R$)',
-            data: [1200, 1900, 3000, 2500, 2200, 2800],
-            backgroundColor: 'rgba(54, 162, 235, 0.5)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1,
-            borderRadius: 5
-        }]
+      labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+      datasets: [{
+        label: 'Vendas (R$)',
+        data: [1200, 1900, 3000, 2500, 2200, 2800],
+        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1,
+        borderRadius: 5
+      }]
     },
     options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top'
-            },
-            title: {
-                display: true,
-                text: 'Vendas Mensais'
-            }
-        },
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
+      responsive: true,
+      plugins: {
+        legend: { position: 'top' },
+        title: { display: true, text: 'Vendas Mensais' }
+      },
+      scales: { y: { beginAtZero: true } }
     }
-});
+  });
 
-const ctxCategorias = document.getElementById('grafico-categorias').getContext('2d');
-new Chart(ctxCategorias, {
+  const ctxCategorias = document.getElementById('grafico-categorias').getContext('2d');
+  new Chart(ctxCategorias, {
     type: 'pie',
     data: {
-        labels: ['Eletrônicos', 'Roupas', 'Livros', 'Alimentos'],
-        datasets: [{
-            label: 'Categorias',
-            data: [30, 25, 15, 30],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.6)',
-                'rgba(255, 206, 86, 0.6)',
-                'rgba(75, 192, 192, 0.6)',
-                'rgba(153, 102, 255, 0.6)'
-            ],
-            borderColor: 'rgba(255, 255, 255, 1)',
-            borderWidth: 2
-        }]
+      labels: nomesCategorias,
+      datasets: [{
+        label: 'Categorias',
+        data: qtdPorCategoria,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(255, 206, 86, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(153, 102, 255, 0.6)'
+        ],
+        borderColor: 'rgba(255, 255, 255, 1)',
+        borderWidth: 2
+      }]
     },
     options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'right'
-            },
-            title: {
-                display: true,
-                text: 'Distribuição por Categoria'
-            }
-        }
+      responsive: true,
+      plugins: {
+        legend: { position: 'right' },
+        title: { display: true, text: 'Distribuição por Categoria' }
+      }
     }
-});
-
+  });
 }
+
 // formulario de cadastro
 formProduto.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -274,5 +255,5 @@ function editarProduto(id, nome, categoria, preco) {
 // inicializações
 listarProdutosBack4App();
 carregarDashboardComBack4App();
-
+importarProdutosFakeStore();
 
