@@ -208,3 +208,17 @@ async function criarProdutoBack4App(produto) {
     alert('Erro ao criar produto.');
   }
 }
+
+async function atualizarProdutoBack4App(id, produto) {
+  const res = await fetch(`${urlBaseBack4App}/${id}`, {
+    method: "PUT",
+    headers: headersBack4App,
+    body: JSON.stringify(produto)
+  });
+  const data = await res.json();
+  if(data.updatedAt) {
+    alert('Produto atualizado com sucesso!');
+  } else {
+    alert('Erro ao atualizar produto.');
+  }
+}
