@@ -21,6 +21,23 @@ function atualizarCards(produtos) {
     document.querySelector('.card:nth-child(4) .valor').textContent = `${crescimento}%`;
 }
 
+function preencherTabela(produtos) {
+    const tbody = document.querySelector('#tabela-dados tbody');
+    tbody.innerHTML = '';
+
+    produtos.forEach(produto => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${produto.id}</td>
+            <td>${produto.title}</td>
+            <td>${produto.category}</td>
+            <td>${Math.floor(Math.random() * 50 + 1)}</td>
+            <td>R$ ${produto.price.toFixed(2)}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
 const ctxVendas = document.getElementById('grafico-vendas').getContext('2d');
 new Chart(ctxVendas, {
     type: 'bar',
