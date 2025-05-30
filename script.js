@@ -255,5 +255,5 @@ function editarProduto(id, nome, categoria, preco) {
 // inicializações
 listarProdutosBack4App();
 carregarDashboardComBack4App();
-importarProdutosFakeStore();
+//importarProdutosFakeStore();
 
