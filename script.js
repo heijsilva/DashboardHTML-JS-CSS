@@ -138,3 +138,11 @@ const headersBack4App = {
 };
 
 const urlBaseBack4App = "https://parseapi.back4app.com/classes/Produto";
+
+const formProduto = document.getElementById('form-produto');
+const inputId = document.getElementById('produto-id');
+const inputNome = document.getElementById('nome-produto');
+const inputCategoria = document.getElementById('categoria-produto');
+const inputPreco = document.getElementById('preco-produto');
+const btnCancelar = document.getElementById('btn-cancelar');
+const tbodyBack4App = document.querySelector('#tabela-back4app tbody');
