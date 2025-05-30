@@ -1,44 +1,70 @@
 //////// fakeStoreApi:
+// configurações das apis
 const API_URL = 'https://fakestoreapi.com/products'; 
 
-async function carregarDados() {
-    const response = await fetch(API_URL);
-    const produtos = await response.json();
+const APPLICATION_ID = ZujUTFo4cU8jrCNFASuMTINhRZer2PuZFdkgGnLg;
+const REST_API_KEY = XD80er4Mqg4I1MGh1rXYmR7nqcaUDcN7QFEc2SJ8;
 
-    atualizarCards(produtos);
-    preencherTabela(produtos);
-    gerarGraficos(produtos);
+const headersBack4App = {
+  "X-Parse-Application-Id": APPLICATION_ID,
+  "X-Parse-REST-API-Key": REST_API_KEY,
+  "Content-Type": "application/json"
+};
+
+const urlBaseBack4App = "https://parseapi.back4app.com/classes/Produto";
+
+//elementos do dom
+const formProduto = document.getElementById('form-produto');
+const inputId = document.getElementById('produto-id');
+const inputNome = document.getElementById('nome-produto');
+const inputCategoria = document.getElementById('categoria-produto');
+const inputPreco = document.getElementById('preco-produto');
+const btnCancelar = document.getElementById('btn-cancelar');
+const tbodyBack4App = document.querySelector('#tabela-back4app tbody');
+
+//função atualizar dados do dashboard
+async function carregarDashboardComBack4App() {
+  const res = await fetch(urlBaseBack4App, { headers: headersBack4App });
+  const data = await res.json();
+  const produtos = data.results;
+
+  atualizarCards(produtos);
+  preencherTabela(produtos);
+  gerarGraficos(produtos);
 }
 
+//função atualizar cards
 function atualizarCards(produtos) {
-    const totalVendas = produtos.reduce((soma, p) => soma + p.price, 0);
-    const totalProdutos = produtos.length;
-    const categorias = [...new Set(produtos.map(p => p.category))];
-    const crescimento = Math.floor(Math.random() * 30 + 1); // Simulado
+  const totalVendas = produtos.reduce((soma, p) => soma + p.preco, 0);
+  const totalProdutos = produtos.length;
+  const crescimento = Math.floor(Math.random() * 30 + 1);
+  const categorias = [...new Set(produtos.map(p => p.categoria))];
 
-    document.querySelector('.card:nth-child(1) .valor').textContent = `R$ ${totalVendas.toFixed(2)}`;
-    document.querySelector('.card:nth-child(2) .valor').textContent = `${Math.floor(totalProdutos * 0.8)}`; // Simula clientes
-    document.querySelector('.card:nth-child(3) .valor').textContent = totalProdutos;
-    document.querySelector('.card:nth-child(4) .valor').textContent = `${crescimento}%`;
+  document.querySelector('.card:nth-child(1) .valor').textContent = `R$ ${totalVendas.toFixed(2)}`;
+  document.querySelector('.card:nth-child(2) .valor').textContent = `${Math.floor(totalProdutos * 0.8)}`;
+  document.querySelector('.card:nth-child(3) .valor').textContent = totalProdutos;
+  document.querySelector('.card:nth-child(4) .valor').textContent = `${crescimento}%`;
 }
 
+//tabela
 function preencherTabela(produtos) {
-    const tbody = document.querySelector('#tabela-dados tbody');
-    tbody.innerHTML = '';
+  const tbody = document.querySelector('#tabela-dados tbody');
+  tbody.innerHTML = '';
 
-    produtos.forEach(produto => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${produto.id}</td>
-            <td>${produto.title}</td>
-            <td>${produto.category}</td>
-            <td>${Math.floor(Math.random() * 50 + 1)}</td>
-            <td>R$ ${produto.price.toFixed(2)}</td>
-        `;
-        tbody.appendChild(tr);
-    });
+  produtos.forEach(produto => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${produto.objectId}</td>
+      <td>${produto.nome}</td>
+      <td>${produto.categoria}</td>
+      <td>${Math.floor(Math.random() * 50 + 1)}</td>
+      <td>R$ ${produto.preco.toFixed(2)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
 }
 
+//graficos
 function gerarGraficos(produtos) {
     const categorias = {};
     produtos.forEach(produto => {
@@ -123,30 +149,7 @@ new Chart(ctxCategorias, {
 });
 
 }
-
-carregarDados();
-
-///// crud back4app
-
-const APPLICATION_ID = ZujUTFo4cU8jrCNFASuMTINhRZer2PuZFdkgGnLg;
-const REST_API_KEY = XD80er4Mqg4I1MGh1rXYmR7nqcaUDcN7QFEc2SJ8;
-
-const headersBack4App = {
-  "X-Parse-Application-Id": APPLICATION_ID,
-  "X-Parse-REST-API-Key": REST_API_KEY,
-  "Content-Type": "application/json"
-};
-
-const urlBaseBack4App = "https://parseapi.back4app.com/classes/Produto";
-
-const formProduto = document.getElementById('form-produto');
-const inputId = document.getElementById('produto-id');
-const inputNome = document.getElementById('nome-produto');
-const inputCategoria = document.getElementById('categoria-produto');
-const inputPreco = document.getElementById('preco-produto');
-const btnCancelar = document.getElementById('btn-cancelar');
-const tbodyBack4App = document.querySelector('#tabela-back4app tbody');
-
+// formulario de cadastro
 formProduto.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -156,17 +159,18 @@ formProduto.addEventListener('submit', async (e) => {
     preco: parseFloat(inputPreco.value)
   };
 
-  if(inputId.value) {
-    // Atualizar
+  if (inputId.value) {
     await atualizarProdutoBack4App(inputId.value, produto);
   } else {
-    // Criar
     await criarProdutoBack4App(produto);
   }
+
   formProduto.reset();
   inputId.value = '';
   btnCancelar.style.display = 'none';
+
   listarProdutosBack4App();
+  carregarDashboardComBack4App();
 });
 
 btnCancelar.addEventListener('click', () => {
@@ -175,6 +179,7 @@ btnCancelar.addEventListener('click', () => {
   btnCancelar.style.display = 'none';
 });
 
+//crud
 async function listarProdutosBack4App() {
   const res = await fetch(urlBaseBack4App, { headers: headersBack4App });
   const data = await res.json();
@@ -202,7 +207,7 @@ async function criarProdutoBack4App(produto) {
     body: JSON.stringify(produto)
   });
   const data = await res.json();
-  if(data.objectId) {
+  if (data.objectId) {
     alert('Produto criado com sucesso!');
   } else {
     alert('Erro ao criar produto.');
@@ -216,7 +221,7 @@ async function atualizarProdutoBack4App(id, produto) {
     body: JSON.stringify(produto)
   });
   const data = await res.json();
-  if(data.updatedAt) {
+  if (data.updatedAt) {
     alert('Produto atualizado com sucesso!');
   } else {
     alert('Erro ao atualizar produto.');
@@ -224,14 +229,15 @@ async function atualizarProdutoBack4App(id, produto) {
 }
 
 async function deletarProduto(id) {
-  if(confirm('Deseja realmente deletar este produto?')) {
+  if (confirm('Deseja realmente deletar este produto?')) {
     const res = await fetch(`${urlBaseBack4App}/${id}`, {
       method: "DELETE",
       headers: headersBack4App,
     });
-    if(res.status === 200) {
+    if (res.status === 200) {
       alert('Produto deletado!');
       listarProdutosBack4App();
+      carregarDashboardComBack4App();
     } else {
       alert('Erro ao deletar produto.');
     }
@@ -246,4 +252,8 @@ function editarProduto(id, nome, categoria, preco) {
   btnCancelar.style.display = 'inline-block';
 }
 
+// inicializações
 listarProdutosBack4App();
+carregarDashboardComBack4App();
+
+
