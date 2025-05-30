@@ -13,7 +13,14 @@ body {
   display: flex;
   flex-direction: column;
 }
-
+canvas {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 300px;
+}
+.grafico canvas {
+  max-height: 300px;
+}
 /* header */
 header {
   background-color: #0d6efd;
