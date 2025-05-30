@@ -146,3 +146,25 @@ const inputCategoria = document.getElementById('categoria-produto');
 const inputPreco = document.getElementById('preco-produto');
 const btnCancelar = document.getElementById('btn-cancelar');
 const tbodyBack4App = document.querySelector('#tabela-back4app tbody');
+
+formProduto.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const produto = {
+    nome: inputNome.value,
+    categoria: inputCategoria.value,
+    preco: parseFloat(inputPreco.value)
+  };
+
+  if(inputId.value) {
+    // Atualizar
+    await atualizarProdutoBack4App(inputId.value, produto);
+  } else {
+    // Criar
+    await criarProdutoBack4App(produto);
+  }
+  formProduto.reset();
+  inputId.value = '';
+  btnCancelar.style.display = 'none';
+  listarProdutosBack4App();
+});
