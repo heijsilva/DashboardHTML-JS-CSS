@@ -30,3 +30,35 @@ new Chart(ctxVendas, {
         }
     }
 });
+
+const ctxCategorias = document.getElementById('grafico-categorias').getContext('2d');
+new Chart(ctxCategorias, {
+    type: 'pie',
+    data: {
+        labels: ['Eletrônicos', 'Roupas', 'Livros', 'Alimentos'],
+        datasets: [{
+            label: 'Categorias',
+            data: [30, 25, 15, 30],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(153, 102, 255, 0.6)'
+            ],
+            borderColor: 'rgba(255, 255, 255, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'right'
+            },
+            title: {
+                display: true,
+                text: 'Distribuição por Categoria'
+            }
+        }
+    }
+});
