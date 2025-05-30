@@ -222,3 +222,19 @@ async function atualizarProdutoBack4App(id, produto) {
     alert('Erro ao atualizar produto.');
   }
 }
+
+async function deletarProduto(id) {
+  if(confirm('Deseja realmente deletar este produto?')) {
+    const res = await fetch(`${urlBaseBack4App}/${id}`, {
+      method: "DELETE",
+      headers: headersBack4App,
+    });
+    if(res.status === 200) {
+      alert('Produto deletado!');
+      listarProdutosBack4App();
+    } else {
+      alert('Erro ao deletar produto.');
+    }
+  }
+}
+
