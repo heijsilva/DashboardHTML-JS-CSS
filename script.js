@@ -245,3 +245,5 @@ function editarProduto(id, nome, categoria, preco) {
   inputPreco.value = preco;
   btnCancelar.style.display = 'inline-block';
 }
+
+listarProdutosBack4App();
