@@ -174,3 +174,23 @@ btnCancelar.addEventListener('click', () => {
   inputId.value = '';
   btnCancelar.style.display = 'none';
 });
+
+async function listarProdutosBack4App() {
+  const res = await fetch(urlBaseBack4App, { headers: headersBack4App });
+  const data = await res.json();
+
+  tbodyBack4App.innerHTML = '';
+  data.results.forEach(prod => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${prod.nome}</td>
+      <td>${prod.categoria}</td>
+      <td>R$ ${prod.preco.toFixed(2)}</td>
+      <td>
+        <button onclick="editarProduto('${prod.objectId}', '${prod.nome}', '${prod.categoria}', ${prod.preco})">Editar</button>
+        <button onclick="deletarProduto('${prod.objectId}')">Excluir</button>
+      </td>
+    `;
+    tbodyBack4App.appendChild(tr);
+  });
+}
