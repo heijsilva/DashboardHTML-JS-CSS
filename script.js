@@ -1,3 +1,5 @@
+const API_URL = 'https://fakestoreapi.com/products'; 
+
 const ctxVendas = document.getElementById('grafico-vendas').getContext('2d');
 new Chart(ctxVendas, {
     type: 'bar',
