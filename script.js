@@ -1,5 +1,14 @@
 const API_URL = 'https://fakestoreapi.com/products'; 
 
+async function carregarDados() {
+    const response = await fetch(API_URL);
+    const produtos = await response.json();
+
+    atualizarCards(produtos);
+    preencherTabela(produtos);
+    gerarGraficos(produtos);
+}
+
 const ctxVendas = document.getElementById('grafico-vendas').getContext('2d');
 new Chart(ctxVendas, {
     type: 'bar',
