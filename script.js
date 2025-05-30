@@ -68,14 +68,14 @@ function preencherTabela(produtos) {
 function gerarGraficos(produtos) {
     const categorias = {};
     produtos.forEach(produto => {
-        if (!categorias[produto.category]) {
-            categorias[produto.category] = {
+        if (!categorias[produto.categoria]) {
+            categorias[produto.categoria] = {
                 quantidade: 0,
                 valor: 0
             };
         }
-        categorias[produto.category].quantidade += 1;
-        categorias[produto.category].valor += produto.price;
+        categorias[produto.categoria].quantidade += 1;
+        categorias[produto.categoria].valor += produto.preco;
     });
 
     const nomesCategorias = Object.keys(categorias);
