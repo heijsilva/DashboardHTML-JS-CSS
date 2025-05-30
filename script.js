@@ -2,8 +2,8 @@
 // configurações das apis
 const API_URL = 'https://fakestoreapi.com/products'; 
 
-const APPLICATION_ID = ZujUTFo4cU8jrCNFASuMTINhRZer2PuZFdkgGnLg;
-const REST_API_KEY = XD80er4Mqg4I1MGh1rXYmR7nqcaUDcN7QFEc2SJ8;
+const APPLICATION_ID = "ZujUTFo4cU8jrCNFASuMTINhRZer2PuZFdkgGnLg";
+const REST_API_KEY = "XD80er4Mqg4I1MGh1rXYmR7nqcaUDcN7QFEc2SJ8";
 
 const headersBack4App = {
   "X-Parse-Application-Id": APPLICATION_ID,
@@ -15,10 +15,10 @@ const urlBaseBack4App = "https://parseapi.back4app.com/classes/Produto";
 
 //elementos do dom
 const formProduto = document.getElementById('form-produto');
-const inputId = document.getElementById('produto-id');
-const inputNome = document.getElementById('nome-produto');
-const inputCategoria = document.getElementById('categoria-produto');
-const inputPreco = document.getElementById('preco-produto');
+const inputId = document.getElementById('input-id');
+const inputNome = document.getElementById('input-nome');
+const inputCategoria = document.getElementById('input-categoria');
+const inputPreco = document.getElementById('input-preco');
 const btnCancelar = document.getElementById('btn-cancelar');
 const tbodyBack4App = document.querySelector('#tabela-back4app tbody');
 
