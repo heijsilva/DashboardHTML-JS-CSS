@@ -1,3 +1,4 @@
+//////// fakeStoreApi:
 const API_URL = 'https://fakestoreapi.com/products'; 
 
 async function carregarDados() {
@@ -124,3 +125,16 @@ new Chart(ctxCategorias, {
 }
 
 carregarDados();
+
+///// crud back4app
+
+const APPLICATION_ID = ZujUTFo4cU8jrCNFASuMTINhRZer2PuZFdkgGnLg;
+const REST_API_KEY = XD80er4Mqg4I1MGh1rXYmR7nqcaUDcN7QFEc2SJ8;
+
+const headersBack4App = {
+  "X-Parse-Application-Id": APPLICATION_ID,
+  "X-Parse-REST-API-Key": REST_API_KEY,
+  "Content-Type": "application/json"
+};
+
+const urlBaseBack4App = "https://parseapi.back4app.com/classes/Produto";
