@@ -120,3 +120,7 @@ new Chart(ctxCategorias, {
         }
     }
 });
+
+}
+
+carregarDados();
