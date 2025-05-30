@@ -238,3 +238,10 @@ async function deletarProduto(id) {
   }
 }
 
+function editarProduto(id, nome, categoria, preco) {
+  inputId.value = id;
+  inputNome.value = nome;
+  inputCategoria.value = categoria;
+  inputPreco.value = preco;
+  btnCancelar.style.display = 'inline-block';
+}
