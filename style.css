@@ -23,7 +23,7 @@ canvas {
 }
 /* header */
 header {
-  background-color: #0d6efd;
+  background-color: #ff82ae;
   color: white;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -65,7 +65,7 @@ main {
 
 .painel h2 {
   font-size: 1.5rem;
-  color: #0d6efd;
+  color: #ff82ae;
   margin-bottom: 1rem;
 }
 
@@ -78,7 +78,7 @@ main {
 
 .card {
   background-color: white;
-  border-left: 5px solid #0d6efd;
+  border-left: 5px solid #ff82ae;
   padding: 1.2rem;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -131,7 +131,7 @@ th, td {
 }
 
 th {
-  background-color: #0d6efd;
+  background-color: #ff82ae;
   color: white;
   font-weight: normal;
 }
@@ -172,7 +172,7 @@ button {
   padding: 0.7rem 1.5rem;
   border: none;
   border-radius: 8px;
-  background-color: #0d6efd;
+  background-color: #ff82ae;
   color: white;
   cursor: pointer;
   font-weight: bold;
@@ -180,12 +180,12 @@ button {
 }
 
 button:hover {
-  background-color: #0b5ed7;
+  background-color: #ff82ae;
 }
 
 /* Footer */
 footer {
-  background-color: #0d6efd;
+  background-color: #ff82ae;
   color: white;
   text-align: center;
   padding: 1rem;
