@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Dados</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Importação da biblioteca Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -16,6 +17,7 @@
                 <li><a href="#graficos">Gráficos</a></li>
                 <li><a href="#tabelas">Tabelas</a></li>
                 <li><a href="#crud">Cadastro de Produtos</a></li>
+                <li><a href="#gerenciamento-produtos">Gerenciamento de Produtos</a></li> <!-- Novo item de navegação -->
             </ul>
         </nav>
     </header>
@@ -75,27 +77,48 @@
                 </table>
             </div>
         </section>
+
         <section id="crud" class="painel">
-        <h2>Cadastro de Produtos</h2>
-        <form id="form-produto">
-            <input type="hidden" id="input-id" />
-            <div>
-            <label for="input-nome">Nome:</label>
-            <input type="text" id="input-nome" required />
+            <h2>Cadastro de Produtos</h2>
+            <form id="form-produto">
+                <input type="hidden" id="input-id" />
+                <div>
+                    <label for="input-nome">Nome:</label>
+                    <input type="text" id="input-nome" required />
+                </div>
+                <div>
+                    <label for="input-categoria">Categoria:</label>
+                    <input type="text" id="input-categoria" required />
+                </div>
+                <div>
+                    <label for="input-preco">Preço:</label>
+                    <input type="number" id="input-preco" step="0.01" required />
+                </div>
+                <div class="botoes">
+                    <button type="submit">Salvar</button>
+                    <button type="button" id="btn-cancelar" style="display: none;">Cancelar</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Nova Seção para Gerenciamento de Produtos -->
+        <section id="gerenciamento-produtos" class="painel">
+            <h2>Gerenciamento de Produtos</h2>
+            <div class="tabela-container">
+                <table id="tabela-back4app">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Categoria</th>
+                            <th>Preço</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Os produtos do Back4App serão carregados aqui pelo JavaScript -->
+                    </tbody>
+                </table>
             </div>
-            <div>
-            <label for="input-categoria">Categoria:</label>
-            <input type="text" id="input-categoria" required />
-            </div>
-            <div>
-            <label for="input-preco">Preço:</label>
-            <input type="number" id="input-preco" step="0.01" required />
-            </div>
-            <div class="botoes">
-            <button type="submit">Salvar</button>
-            <button type="button" id="btn-cancelar" style="display: none;">Cancelar</button>
-            </div>
-        </form>
         </section>
     </main>
 
@@ -103,6 +126,7 @@
         <p>&copy; 2025 Dashboard de Dados</p>
     </footer>
 
+    <!-- Seu arquivo JavaScript para inicializar a lógica da aplicação -->
     <script src="script.js"></script>
 </body>
 </html>
